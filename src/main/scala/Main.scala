@@ -12,7 +12,9 @@ object Main {
   def printWords(file: String): Unit =
     val source = Source.fromFile(file)
     val line = source.getLines()
-    val words = line.flatMap(_.split("\\W+")).size
+    val words = line.flatMap(_.split("\\W+")).foldLeft(Map.empty[String, Int]) { (acc, words) =>
+      acc + (words -> (acc.getOrElse(words, 0) + 1))
+    }.values.sum
     println(s"Words: $words")
 
   @main
