@@ -11,9 +11,7 @@ object Main {
   private def printWords(file: String): Unit =
     val source = Source.fromFile(file)
     val line = source.getLines()
-    val words = line.flatMap(_.split("\\W+")).foldLeft(Map.empty[String, Int]) { (acc, words) =>
-      acc + (words -> (acc.getOrElse(words, 0) + 1))
-    }.values.sum
+    val words = line.flatMap(_.split("\\s+")).length
     println(s"Words: $words")
 
   private def printChars(file: String): Unit =
